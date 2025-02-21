@@ -1,5 +1,14 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  UploadedFile,
+  UseInterceptors,
+} from '@nestjs/common';
 import { AppService } from './app.service';
+import fs from 'node:fs';
+import path from 'node:path';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller()
 export class AppController {
@@ -10,11 +19,11 @@ export class AppController {
     return this.appService.getHello();
   }
 
-  @Post()
-  getAccessTokenFromGoogle(@Body() body: { value: string }) {
-    const { value } = body;
-    console.log('body', value);
+  @Post('image')
+  @UseInterceptors(FileInterceptor('imageimage'))
+  getImage(@UploadedFile() imageimage: Express.Multer.File) {
+    console.log('imageimage', imageimage);
 
-    return '11111';
+    return '1';
   }
 }
